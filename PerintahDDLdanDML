@@ -1,0 +1,301 @@
+~ $ mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 10.11.4-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create user 'alicia'@'localhost'identified by '123';
+Query OK, 0 rows affected (0.008 sec)
+
+MariaDB [(none)]> grant all privileges on *.* to 'alicia'@'localhost';
+Query OK, 0 rows affected (0.004 sec)
+
+MariaDB [(none)]> exit
+Bye
+~ $ mysql -u alicia -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 4
+Server version: 10.11.4-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> -u alicia -p
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-u alicia -p' at line 1
+MariaDB [(none)]> exit
+Bye
+~ $ mysql -u alicia -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 5
+Server version: 10.11.4-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database db_databuku_alicia;
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [(none)]> use db_databuku_alicia;
+Database changed
+MariaDB [db_databuku_alicia]> create table tokobuku(
+    -> code_buku varchar (15) not null,
+    -> nama_buku varchar (20) not null,
+    -> nomor_isbn integer (15) not null
+    -> penerbit varchar (10) not null,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'varchar (10) not null,' at line 5
+MariaDB [db_databuku_alicia]> create table tokobuku(
+    -> code_buku varchar (15) not null,
+    -> nama_buku varchar (20) not null,
+    -> nomor_isbn integer (15) not null,
+    -> penerbit varchar (20) not null,
+    -> tahun_terbit date nol null,
+    -> penulis varchar (30) not null,
+    -> stok integer (25) not null,
+    -> PRIMARY KEY (code_buku)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'null,
+penulis varchar (30) not null,
+stok integer (25) not null,
+PRIMARY KEY ...' at line 6
+MariaDB [db_databuku_alicia]> create table tokobuku(      -> code_buku varchar (15) not null,                   -> nama_buku varchar (20) not null,                   -> nomor_isbn integer (15) not null,                  -> penerbit varchar (20) not null,                    -> tahun_terbit date nol null,                        -> penulis varchar (30) not null,                     -> stok integer (25) not null,                        -> PRIMARY KEY (code_buku)                            -> );                                             ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'null,penulis varchar (30) not null,
+stok integer (25) not null,
+PRIMARY KEY ...' at line 6
+MariaDB [db_databuku_alicia]> create table tokobuku(      -> code_buku varchar (15) not null,                   -> nama_buku varchar (20) not null,                   -> nomor_isbn integer (15) not null,                  -> penerbit varchar (20) not null,                    -> tahun_terbit date nol null,                        -> penulis varchar (30) not null,                     -> stok integer (25) not null,                        -> PRIMARY KEY (code_buku)                            -> );                                             ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'null,penulis varchar (30) not null,
+stok integer (25) not null,
+PRIMARY KEY ...' at line 6
+MariaDB [db_databuku_alicia]> create table tokobuku(      -> code_buku varchar (15) not null,                   -> nama_buku varchar (20) not null,                   -> nomor_isbn integer (15) not null,                  -> penerbit varchar (20) not null,                    -> tahun_terbit date not null,                        -> penulis varchar (30) not null,                     -> stok integer (25) not null,                        -> PRIMARY KEY (code_buku)                            -> );                                             Query OK, 0 rows affected (0.064 sec)
+MariaDB [db_databuku_alicia]> insert into tokobuku(code_buku,nama_buku,nomor_isbn,penerbit,tahun_terbit,penulis,stok) values
+    -> ("B001","Goosebumps",97987654926,"Gramedia",2002,"R.L.Steine",100);
+ERROR 1264 (22003): Out of range value for column 'nomor_isbn' at row 1
+MariaDB [db_databuku_alicia]> insert into tokobuku(code_buku,nama_buku,nomor_isbn,penerbit,tahun_terbit,penulis,stok) values
+    -> ("B001","Goosebumps",97987654926,"Gramedia",2002,"R.L.Steina",100);
+ERROR 1264 (22003): Out of range value for column 'nomor_isbn' at row 1
+MariaDB [db_databuku_alicia]> insert into tokobuku(code_buku,nama_buku,nomor_isbn,penerbit,tahun_terbit,penulis,stok) values ("B001","Goosebumps",979876,"Gramedia","2002-3-18","R.L.Steina",100);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [db_databuku_alicia]> insert into tokobuku(codERROR 1062 (23000): Duplicate entry 'B001' for key 'PRIMARY'ok) values ("B001","Goosebumps",979876,"GramediaMariaDB [db_databuku_alicia]> );
+MariaDB [db_databuku_alicia]> insert into tokobuku(code_buku,nama_buku,nomor_isbn,penerbit,tahun_terbit,penulis,stok) values ("B001","Goosebumps",979876,"Gramedia","2002-3-18","R.L.Steina",100);
+ERROR 1062 (23000): Duplicate entry 'B001' for key 'PRIMARY'
+MariaDB [db_databuku_alicia]> insert into tokobuku(code_buku,nama_buku,nomor_isbn,penerbit,tahun_terbit,penulis,stok) values ("B002","basis data",9798753742,"Gramedia","2005-2-15","Andi",100);                        ERROR 1264 (22003): Out of range value for column 'nomor_isbn' at row 1
+MariaDB [db_databuku_alicia]> insert into tokobuku(code_buku,nama_buku,nomor_isbn,penerbit,tahun_terbit,penulis,stok) values ("B002","basis data",9798753,"Gramedia","2005-2-15","Andi",100);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [db_databuku_alicia]> select * From databuku;
+ERROR 1146 (42S02): Table 'db_databuku_alicia.databuku' doesn't exist
+MariaDB [db_databuku_alicia]> select *From tokobuku;
++-----------+------------+------------+----------+--------------+------------+------+
+| code_buku | nama_buku  | nomor_isbn | penerbit | tahun_terbit | penulis    | stok |
++-----------+------------+------------+----------+--------------+------------+------+
+| B001      | Goosebumps |     979876 | Gramedia | 2002-03-18   | R.L.Steina |  100 |
+| B002      | basis data |    9798753 | Gramedia | 2005-02-15   | Andi       |  100 |
++-----------+------------+------------+----------+--------------+------------+------+
+2 rows in set (0.005 sec)
+
+MariaDB [db_databuku_alicia]> create table Distributor(
+    -> id_distributor int (15) not null,
+    -> nama_distributor varchar (10) not null,
+    -> no_tlp int (20),
+    ->
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 6
+MariaDB [db_databuku_alicia]> create table Distributor(        -> nama_distributor varchar (10) not null,                 -> nama_distributor varchar (10) not null,                 -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 4
+MariaDB [db_databuku_alicia]> create table Distributor(        -> nama_distributor varchar (10) not null,                 -> nama_distributor varchar (10) not null,);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 3
+MariaDB [db_databuku_alicia]> create table Distributor(        -> id_distributor int (15) not null,                       -> nama_distributor varchar (10) not null,);           ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 3
+MariaDB [db_databuku_alicia]> create table Distributor(        -> id_distributor int (15) not null,                       -> nama_distributor varchar (10) not null,                 -> no_tlp int (20),
+    -> alamat varchar (26),
+    -> PRIMARY KEY (id_distributor)
+    -> );
+Query OK, 0 rows affected (0.031 sec)
+
+MariaDB [db_databuku_alicia]> insert into distributor(id_distributor,no_tlp,alamat) values
+    -> (123456,087665745,"kaliwungu"),
+    -> (654890,087456321,"sumberejo");
+ERROR 1146 (42S02): Table 'db_databuku_alicia.distributor' doesn't exist
+MariaDB [db_databuku_alicia]> insert into Distributor(id_distributor,no_tlp,alamat) values (123456,087665745,"kaliwungu"), (654890,087456321,"sumberejo");
+ERROR 1364 (HY000): Field 'nama_distributor' doesn't have a default value
+MariaDB [db_databuku_alicia]> insert into distributor(id_distributor,nama_distributor,no_tlp,alamat) values
+    -> (123456,"dina",087665745,"kaliwungu"),
+    -> (654890,"rina",087456321,"sumberejo");
+ERROR 1146 (42S02): Table 'db_databuku_alicia.distributor' doesn't exist
+MariaDB [db_databuku_alicia]> insert into Distributor(id_distributor,no_tlp,alamat) values (123456,087665745,"kaliwungu"), (654890,087456321,"sumberej);                             "> ;
+    "> );
+    "> select;
+    ">
+    "> ;
+    "> ;
+    "> Ctrl-C -- exit!
+Aborted
+~ $ mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 6
+Server version: 10.11.4-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use db_databuku_alicia
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [db_databuku_alicia]> insert into Distributor(id_distributor,no_tlp,alamat) values
+    -> id_distributor int (15) not null,
+    -> nama_distributor varchar (10) not null,
+    -> no_tlp int (20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'id_distributor int (15) not null,
+nama_distributor varchar (10) not null,
+no_...' at line 2
+MariaDB [db_databuku_alicia]> insert intro Distributor(id_distributor,no_tlp,alamat) values
+    -> id_distributor int (15) not null,
+    -> nama_distributor varchar (10) not null,
+    -> no_tlp int (20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'Distributor(id_distributor,no_tlp,alamat) values
+id_distributor int (15) not ...' at line 1
+MariaDB [db_databuku_alicia]> insert intro Distributor(id_distributor,no_tlp,alamat) values                               -> id_distributor int (15) not null,                       -> nama_distributor varchar (10) not null,                 -> no_tlp int (20),                                        -> alamat varchar (26),                                    -> PRIMARY KEY (id_distributor)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'Distributor(id_distributor,no_tlp,alamat) values
+id_distributor int (15) not ...' at line 1
+MariaDB [db_databuku_alicia]> insert into Distributor(id_distributor,no_tlp,alamat) values                                -> (123456,"dina",087665745,"kaliwungu"),
+    -> (654890,"rina",08745632q,"sumberejo");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [db_databuku_alicia]> insert into Distributor(id_distributor,no_tlp,alamat) values                                -> (123456,"dina",087665745,"kaliwungu"),
+    -> (654890,"rina",087456321,"sumberejo");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [db_databuku_alicia]> insert into Distributor(id_distributor,no_tlp,alamat) values                                -> (1234,"dina",087665745,"kaliwungu"),
+    -> (6548,"rina",087456321,"sumberejo");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [db_databuku_alicia]> show tables;                 +------------------------------+                           | Tables_in_db_databuku_alicia |
++------------------------------+
+| Distributor                  |
+| tokobuku                     |
++------------------------------+
+2 rows in set (0.003 sec)
+
+MariaDB [db_databuku_alicia]> desc Distributor;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| id_distributor   | int(15)     | NO   | PRI | NULL    |       |
+| nama_distributor | varchar(10) | NO   |     | NULL    |       |
+| no_tlp           | int(20)     | YES  |     | NULL    |       |
+| alamat           | varchar(26) | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.023 sec)
+
+MariaDB [db_databuku_alicia]> insert into Distributor
+    -> values
+    -> (1234,"dina",087665745,"kaliwungu");
+Query OK, 1 row affected (0.008 sec)
+
+MariaDB [db_databuku_alicia]> insert into Distributor
+    -> values
+    -> (6548,"rina",087456321,"sumberejo");
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [db_databuku_alicia]> select * from Distributor;
++----------------+------------------+----------+-----------+
+| id_distributor | nama_distributor | no_tlp   | alamat    |
++----------------+------------------+----------+-----------+
+|           1234 | dina             | 87665745 | kaliwungu |
+|           6548 | rina             | 87456321 | sumberejo |
++----------------+------------------+----------+-----------+
+2 rows in set (0.001 sec)
+
+MariaDB [db_databuku_alicia]> create table pembelian(               -> id_order int (11),
+    -> id_barang int(15),
+    -> id_pembeli int (10),
+    -> tanggal date,
+    -> PRIMARY KEY (id_oerder)
+    -> );
+ERROR 1072 (42000): Key column 'id_oerder' doesn't exist in table
+MariaDB [db_databuku_alicia]> create table pembelian(               -> id_order int (11),                                           -> id_barang int(15),                                           -> id_pembeli int (10),                                         -> tanggal date,                                                -> PRIMARY KEY (id_order)                                       -> );
+Query OK, 0 rows affected (0.064 sec)
+
+MariaDB [db_databuku_alicia]> insert into pembelian(id_order,id_barang,id_pembeli,tanggal) values (6017,15056,12345,"2023-07-10");
+Query OK, 1 row affected (0.016 sec)
+
+MariaDB [db_databuku_alicia]> insert into pembelian(id_order,id_barang,id_pembeli,tanggal) values (6018,15058,12356,"2023-07-13");
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [db_databuku_alicia]> select * From pembelian;
++----------+-----------+------------+------------+
+| id_order | id_barang | id_pembeli | tanggal    |
++----------+-----------+------------+------------+
+|     6017 |     15056 |      12345 | 2023-07-10 |
+|     6018 |     15058 |      12356 | 2023-07-13 |
++----------+-----------+------------+------------+
+2 rows in set (0.001 sec)
+
+MariaDB [db_databuku_alicia]> create table pelanggan(
+    -> id_pelanggan int(11),                                                     nama_pembeli varchar(30),                                                  no_telp char(14),                                                          alamat varchar(15),                                                         PRIMARY KEY (id_pelanggan)
+    -> );
+Query OK, 0 rows affected (0.014 sec)
+MariaDB [db_databuku_alicia]> insert into pelanggan(id_pelanggan,nama_pembeli,no_telp,alamat) values
+    -> (12345,"Roni",08512365,"Bringin"),
+    -> (12356,"Isya",08754321,"Mangkang");
+Query OK, 2 rows affected (0.003 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [db_databuku_alicia]> select * From pelanggan;
++--------------+--------------+---------+----------+
+| id_pelanggan | nama_pembeli | no_telp | alamat   |
++--------------+--------------+---------+----------+
+|        12345 | Roni         | 8512365 | Bringin  |
+|        12356 | Isya         | 8754321 | Mangkang |
++--------------+--------------+---------+----------+
+2 rows in set (0.001 sec)
+
+MariaDB [db_databuku_alicia]> create table penjualan(                                   
+    ->  id_order int,                                                                      id_barang int,
+    ->  harga int,
+    -> jumlah int,
+    ->   PRIMARY KEY (id_order)
+    ->  );
+Query OK, 0 rows affected (0.022 sec)
+
+MariaDB [db_databuku_alicia]> insert into penjualan(id_order,id_barang,harga,jumlah) values
+    -> (6017,15056,170000,3),
+    -> (6018,15058,32000,1);
+Query OK, 2 rows affected (0.005 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [db_databuku_alicia]> select * From penjualan;
++----------+-----------+--------+--------+
+| id_order | id_barang | harga  | jumlah |
++----------+-----------+--------+--------+
+|     6017 |     15056 | 170000 |      3 |
+|     6018 |     15058 |  32000 |      1 |
++----------+-----------+--------+--------+
+2 rows in set (0.003 sec)
+
+MariaDB [db_databuku_alicia]> update penjualan set id_barang = '1703' where id_order = '6017';
+Query OK, 1 row affected (0.018 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db_databuku_alicia]> select * form penjualan;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'form penjualan' at line 1
+MariaDB [db_databuku_alicia]> select * From penjualan;
++----------+-----------+--------+--------+
+| id_order | id_barang | harga  | jumlah |
++----------+-----------+--------+--------+
+|     6017 |      1703 | 170000 |      3 |
+|     6018 |     15058 |  32000 |      1 |
++----------+-----------+--------+--------+
+2 rows in set (0.001 sec)
+
+MariaDB [db_databuku_alicia]>
